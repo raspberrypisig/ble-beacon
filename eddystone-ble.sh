@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -x
 
+#https://yencarnacion.github.io/eddystone-url-calculator/
+
 sudo hciconfig hci0 up
 sudo hciconfig hci0 leadv 3
 i=0
