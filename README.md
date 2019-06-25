@@ -1,23 +1,23 @@
 # Mish-mash of BLE Learnings
 
-Bluetooth whitepaper
 https://www.silabs.com/community/blog.entry.html/2016/04/25/bluetooth_ble_beacon-IGMb
 
-
 non-connectable, undirected advertising packets
+
 hciconfig -i hci0 leadv 3
 
-Peripheral sends data
-Central consumes data
+Peripheral sends data ----------> Central consumes data
 
 https://www.accton.com/wp-content/uploads/2018/07/TB_BLE02.jpg
 
-BLE fundamentals
 https://www.argenox.com/library/bluetooth-low-energy/ble-advertising-primer/
 
 Advertising packets
+
 Two types:
+
 ADV_IND: Advertising helps with central connecting to peripheral
+
 ADV_NONCONN_IND: advertisement only, no connection solicited (beacon)
 
 
