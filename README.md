@@ -152,7 +152,7 @@ Bit3 – Indicates whether LE and BR/EDR Controller operates simultaneously
 Bit4 – Indicates whether LE and BR/EDR Host operates simultaneously
 
 
-
+http://bluetooth-dev.blogspot.com/p/blog-page.html
 
 
 
