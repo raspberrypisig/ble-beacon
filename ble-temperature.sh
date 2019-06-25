@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 #https://stackoverflow.com/questions/25713995/how-to-decode-a-bluetooth-le-package-frame-beacon-of-a-freetec-px-1737-919-b
+#https://github.com/NordicSemiconductor/IOS-nRF-Connect/issues/48
 
 while true
 do
