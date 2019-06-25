@@ -10,6 +10,8 @@ hciconfig -i hci0 leadv 3
 Peripheral sends data
 Central consumes data
 
+https://www.accton.com/wp-content/uploads/2018/07/TB_BLE02.jpg
+
 BLE fundamentals
 https://www.argenox.com/library/bluetooth-low-energy/ble-advertising-primer/
 
