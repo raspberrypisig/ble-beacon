@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
-import 'dart:async';
+//import 'dart:async';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_blue/flutter_blue.dart';
+import 'led.dart';
 //import 'package:android_intent/android_intent.dart';
 
 void main() => runApp(MyApp());
@@ -91,7 +92,10 @@ class _MyHomePageState extends State<MyHomePage> {
              Row(
               children: <Widget>[
                 Row(children: <Widget>[
-                  Text("Bluetooth Status: ", textScaleFactor: 2, ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 16.0)
+                  ),
+                  Text("BLUETOOTH STATUS: ", textScaleFactor: 1.3, ),
                   StreamBuilder<BluetoothState>(
                     stream: flutterBlue.state,
                     initialData: BluetoothState.off,
@@ -119,6 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
              ),
              Row(
+               mainAxisAlignment: MainAxisAlignment.start,
                children: <Widget>[
                  MaterialButton(
                    splashColor: Colors.redAccent,
@@ -126,7 +131,6 @@ class _MyHomePageState extends State<MyHomePage> {
                      color: Colors.blueAccent,
                      fontSize: 20.0
                    ),),
-                   padding: EdgeInsets.all(12.0),
                    onPressed: () {
                      flutterBlue.startScan();
                    },
@@ -145,8 +149,9 @@ class _MyHomePageState extends State<MyHomePage> {
              )
              ,
              Padding(
-               padding: EdgeInsets.only(bottom: 20),
+               padding: EdgeInsets.only(bottom: 10)
              ),
+             Divider(),
              Expanded(
                child: StreamBuilder<List<ScanResult>>(
                  stream: FlutterBlue.instance.scanResults,
@@ -157,20 +162,44 @@ class _MyHomePageState extends State<MyHomePage> {
                      crossAxisAlignment: CrossAxisAlignment.center,
                      
                      children: snapshot.data.map<Widget>(
-                       (r) {
+                       (ScanResult r) {
                         if (r.device.name != "") { 
                          return
-                         Column(  
-                         crossAxisAlignment: CrossAxisAlignment.stretch,                        
-                         children: <Widget>[Row(
-                         mainAxisAlignment: MainAxisAlignment.center,
-                         mainAxisSize: MainAxisSize.max,
-                         children: <Widget>[
+                         GestureDetector(
+                         onTap: () async {
+                           print(r.device.name);
+                           await r.device.connect();
+                           Navigator.push(
+                             context, 
+                             MaterialPageRoute(
+                               builder: (BuildContext context) {
+                                 flutterBlue.stopScan();
+                                 return  LED(r.device);
+                               }
+                             )
+                           );
+                         }, 
+                         child: Column(  
+                           crossAxisAlignment: CrossAxisAlignment.stretch,                        
+                           children: <Widget>[Row(
+                           mainAxisAlignment: MainAxisAlignment.center,
+                           mainAxisSize: MainAxisSize.max,
+                           children: <Widget>[
                            //Text(r.device.id.toString(), textScaleFactor: 1.3,),
                            //Text(":"),
-                           Text(r.device.name, textScaleFactor: 1.3,),
+                             Padding(
+                             padding: EdgeInsets.only(top: 50.0),
+                           ),
+                           Text(r.device.name, textScaleFactor: 1.5,),
+                           Padding(
+                             padding: EdgeInsets.only(bottom: 50.0),
+                           )
                          ],
-                       ), Padding(padding: EdgeInsets.only(bottom: 15)), Divider()]);
+                       ), 
+                        
+                       Divider(),
+                       ]
+                       ));
                        }
                        return Container(width: 0, height: 0);
                        }
