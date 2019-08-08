@@ -20,6 +20,12 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_blue: ^0.6.0+2
+  #for ios use this
+  # Thanks to https://github.com/pauldemarco/flutter_blue/issues/292
+  # 
+  #flutter_blue:
+  ###url: https://github.com/pauldemarco/flutter_blue.git
+  ###ref: 38ae679fbf445fecac36bc5d45265f946e0990d7
   android_intent: ^0.3.2
 
   # The following adds the Cupertino Icons font to your application.
