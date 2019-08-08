@@ -20,4 +20,4 @@ samples, guidance on mobile development, and a full API reference.
 https://github.com/pauldemarco/flutter_blue/issues/82
 
 
-In the root of project, do ```sh ln -s ios/Pods```
+In the root of project, do ``` ln -s ios/Pods```
