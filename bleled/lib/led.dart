@@ -38,7 +38,7 @@ class LEDPage extends StatefulWidget {
   }
   
   class _LEDPageState extends State<LEDPage> {
-  
+  BluetoothCharacteristic ledPrimaryCharacteristic;
   
 
   void listServices() async {
@@ -47,20 +47,35 @@ class LEDPage extends StatefulWidget {
 
     services.forEach((service) {
       String lEDServiceUUID = service.uuid.toString().substring(4,8);
-      print(service.uuid.toString());
-      print(lEDServiceUUID);
+      //print(service.uuid.toString());
+      //print(lEDServiceUUID);
       if (lEDServiceUUID == '1818') {
-        print("Service 1818 found.");
+        //print("Service 1818 found.");
         service.characteristics.forEach((BluetoothCharacteristic characterisitic) async {
           String lEDCharacteristicUUID = characterisitic.uuid.toString().substring(4,8).toUpperCase();
           print(characterisitic.uuid.toString());
           if (lEDCharacteristicUUID == '291F'){
-              print("about to write to BLE Device");
-              await characterisitic.write([0x01,0x00,0x00,0x00], withoutResponse: true);
+              ledPrimaryCharacteristic = characterisitic;
+              //print("about to write to BLE Device");
+              //await characterisitic.write([0x01,0x00,0x00,0x00], withoutResponse: true);
           }
         });
       }
     });  
+  }
+
+  void ledOn() async {
+    if (ledPrimaryCharacteristic != null) {
+      print("writing 1 to primary characteristic");
+      await ledPrimaryCharacteristic.write([0x01,0x00,0x00,0x00], withoutResponse: true);
+    }
+  }
+
+  void ledOff() async {
+    if (ledPrimaryCharacteristic != null) {
+      print("writing 0 to primary characteristic");
+      await ledPrimaryCharacteristic.write([0x00,0x00,0x00,0x00], withoutResponse: true);
+    }
   }
 
   @override
@@ -71,14 +86,44 @@ class LEDPage extends StatefulWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column( 
-    
-    children: <Widget>[
+    return WillPopScope(
+    onWillPop: () async {
+      widget.bleDevice.disconnect();
+      //Navigator.of(context).pop();
+      return true;
+    },  
+    child: Center(
+      child: Column( 
       
-      Text(
-      widget.bleDevice.name
+      children: <Widget>[        
+        Text(
+        widget.bleDevice.name, textScaleFactor: 2,
+      ),
+      Padding(
+        padding: EdgeInsets.only(top: 30.0),
+      ),
+      RaisedButton(
+        onPressed: () async {
+           ledOn();
+        },
+        child: Text('LED ON', style: TextStyle(
+          fontSize: 42
+        ),),
+      ),
+      Padding(
+        padding: EdgeInsets.only(top: 30.0),
+      ),
+      RaisedButton(
+        onPressed: () async {
+          ledOff();
+        },
+        child: Text('LED OFF', style: TextStyle(
+          fontSize: 42
+        ),),
+      )      
+      ]),
     )
-    ]);
+    );
   }
 
   }
