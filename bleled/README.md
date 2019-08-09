@@ -26,3 +26,4 @@ In the root of project, do ``` ln -s ios/Pods Pods```
 
 https://testflight.apple.com/join/4ozNQjyH
 
+![qr code](https://github.com/raspberrypisig/ble-beacon/raw/master/bleled/qr.jpg)
