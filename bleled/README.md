@@ -21,3 +21,8 @@ https://github.com/pauldemarco/flutter_blue/issues/82
 
 
 In the root of project, do ``` ln -s ios/Pods Pods```
+
+# Testflight public link
+
+https://testflight.apple.com/join/4ozNQjyH
+
